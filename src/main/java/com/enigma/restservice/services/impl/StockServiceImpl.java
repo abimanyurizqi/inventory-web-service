@@ -12,19 +12,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Transactional
 @org.springframework.stereotype.Service
-public class StockServiceImpl implements Service<Stock>, StockSummaryService {
+public class StockServiceImpl implements Service<Stock, Integer>, StockSummaryService {
 
     @Autowired
     private StockRepository stockRepository;
 
-    @Transactional
+
     @Override
     public Stock save(Stock entity) {
         return stockRepository.save(entity);
     }
 
-    @Transactional
+
     @Override
     public Stock removeById(Integer id) {
         Stock entity = findById(id);
@@ -34,9 +35,7 @@ public class StockServiceImpl implements Service<Stock>, StockSummaryService {
 
     @Override
     public Stock findById(Integer id) {
-        return stockRepository.findById(id).orElseThrow(() -> {
-            return new EntityNotFoundException();
-        });
+        return stockRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
     }
 
     @Override
@@ -50,6 +49,7 @@ public class StockServiceImpl implements Service<Stock>, StockSummaryService {
 
     @Override
     public List<StockSummary> stockSummary() {
+
         return stockRepository.stockSummary();
     }
 }

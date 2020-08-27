@@ -11,9 +11,11 @@ public class UnitModel {
     private Integer id;
 
     @MinLength(1)
-    @NotBlank(message = "{name.blank}")
+    @NotBlank(message = "{name.notblank}")
     private String name;
 
+    @MinLength(3)
+    @NotBlank(message = "{description.notblank}")
     private String description;
 
     public Integer getId() {

@@ -28,20 +28,20 @@ import java.util.List;
 public class StockController {
 
     @Autowired
-    private Service<Stock> stockService;
+    private Service<Stock, Integer> stockService;
 
     @Autowired
     StockSummaryService stockSummaryService;
 
     @Autowired
-    private Service<Item> itemService;
+    private Service<Item, Integer> itemService;
 
     @Autowired
-    private Service<Unit> unitService;
+    private Service<Unit, Integer> unitService;
 
 
     @PostMapping
-    public ResponseMessage<StockModel> add(@RequestBody StockRequestModel model) {
+    public ResponseMessage<StockModel> add(@RequestBody @Valid StockRequestModel model) {
 
         Item item = itemService.findById(model.getItemId());
         Unit unit = unitService.findById(model.getUnitId());

@@ -1,8 +1,6 @@
 package com.enigma.restservice.models.item;
 
 import com.enigma.restservice.validation.annotations.MinLength;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 
 import javax.validation.constraints.NotBlank;
 
@@ -11,9 +9,19 @@ public class ItemModel {
 
     private Integer id;
 
-    @MinLength(3)
+    @MinLength(1)
     @NotBlank(message = "{name.notblank}")
     private String name;
+
+    private String imageUrl;
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     public Integer getId() {
         return id;

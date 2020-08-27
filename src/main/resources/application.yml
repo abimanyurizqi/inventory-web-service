@@ -1,8 +1,8 @@
-Application data.dir: ~/Data/Testing/projects/restservice
+Application data.dir: ${DATA_DIR:~/restservice}
 spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/bootcamp
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/bootcamp
     username: root
     password: rogerfederer
   jpa:

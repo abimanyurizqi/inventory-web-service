@@ -3,14 +3,15 @@ package com.enigma.restservice.services;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 
-public interface Service<E> {
 
-    public E save(E entity);
+public interface Service<T, ID> {
 
-    public E removeById(Integer id);
+    public T save(T entity);
 
-    public E findById(Integer id);
+    public T removeById(ID id);
 
-    public Page<E> findAll(E entity, int page, int size, Sort.Direction sort);
+    public T findById(ID id);
+
+    public Page<T> findAll(T entity, int page, int size, Sort.Direction sort);
 
 }

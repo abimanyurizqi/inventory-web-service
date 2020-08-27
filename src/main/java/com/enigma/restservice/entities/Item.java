@@ -1,6 +1,7 @@
 package com.enigma.restservice.entities;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 
 @Table(name = "item")

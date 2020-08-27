@@ -1,9 +1,15 @@
 package com.enigma.restservice.models.stock;
 
+
+import javax.validation.constraints.NotNull;
+
 public class StockRequestModel {
 
+    @NotNull(message = "{item.notblank}")
     private Integer itemId;
+    @NotNull(message = "{unit.notblank}")
     private Integer unitId;
+    @NotNull(message = "{quantity.notblank}")
     private Integer quantity;
 
     public Integer getItemId() {

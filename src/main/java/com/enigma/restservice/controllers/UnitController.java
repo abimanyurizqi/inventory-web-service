@@ -1,8 +1,10 @@
 package com.enigma.restservice.controllers;
 
+import com.enigma.restservice.entities.Item;
 import com.enigma.restservice.entities.Unit;
 import com.enigma.restservice.models.PageableList;
 import com.enigma.restservice.models.ResponseMessage;
+import com.enigma.restservice.models.item.ItemModel;
 import com.enigma.restservice.models.unit.UnitModel;
 import com.enigma.restservice.services.Service;
 import org.modelmapper.ModelMapper;
@@ -22,10 +24,10 @@ import java.util.List;
 public class UnitController {
 
     @Autowired
-    private Service<Unit> service;
+    private Service<Unit, Integer> service;
 
     @PostMapping
-    public ResponseMessage<UnitModel> add(@RequestBody UnitModel model) {
+    public ResponseMessage<UnitModel> add(@RequestBody @Valid UnitModel model) {
         Unit entity = service.save(new Unit(model.getName(), model.getDescription()));
         ModelMapper modelMapper = new ModelMapper();
         UnitModel newModel = modelMapper.map(entity, UnitModel.class);
@@ -80,6 +82,15 @@ public class UnitController {
                 );
 
         return ResponseMessage.success(data);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseMessage<UnitModel> removeById(@PathVariable Integer id) {
+        Unit entity = service.removeById(id);
+
+        ModelMapper modelMapper = new ModelMapper();
+        UnitModel model = modelMapper.map(entity, UnitModel.class);
+        return ResponseMessage.success(model);
     }
 
 }

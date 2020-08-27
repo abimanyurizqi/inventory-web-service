@@ -23,10 +23,10 @@ import java.util.List;
 public class ItemController {
 
     @Autowired
-    private Service<Item> service;
+    private Service<Item, Integer> service;
 
     @PostMapping
-    public ResponseMessage<ItemModel> add(@RequestBody ItemModel model) {
+    public ResponseMessage<ItemModel> add(@RequestBody @Valid ItemModel model) {
         Item entity = service.save(new Item(model.getName()));
         ModelMapper modelMapper = new ModelMapper();
         ItemModel newModel = modelMapper.map(entity, ItemModel.class);

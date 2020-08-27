@@ -1,11 +1,8 @@
 package com.enigma.restservice.controllers;
-import com.enigma.restservice.entities.Stock;
 import com.enigma.restservice.entities.Transaction;
 import com.enigma.restservice.entities.TypeTransaction;
 import com.enigma.restservice.models.PageableList;
 import com.enigma.restservice.models.ResponseMessage;
-import com.enigma.restservice.models.stock.StockModel;
-import com.enigma.restservice.models.stock.StockRequestModel;
 import com.enigma.restservice.models.transactions.TransactionModel;
 import com.enigma.restservice.models.transactions.TransactionSummary;
 import com.enigma.restservice.services.Service;
@@ -31,13 +28,13 @@ import java.util.List;
 public class TransactionController {
 
     @Autowired
-    private Service<Transaction> service;
+    private Service<Transaction, Integer> service;
 
     @Autowired
     private TransactionSummaryService transactionSummaryService;
 
     @PostMapping
-    public ResponseMessage<TransactionModel> add(@RequestBody TransactionModel model) {
+    public ResponseMessage<TransactionModel> add(@RequestBody @Valid TransactionModel model) {
 
         Transaction entity = service.save(new Transaction(model.getAmount(), model.getDescription(), TypeTransaction.fromValue(model.getTypeTransaction())));
         ModelMapper modelMapper = new ModelMapper();
@@ -50,6 +47,7 @@ public class TransactionController {
         ModelMapper modelMapper = new ModelMapper();
         Transaction entity = service.findById(id);
         entity.setAmount(model.getAmount());
+        entity.setDescription(model.getDescription());
         entity.setTypeTransaction(TypeTransaction.fromValue(model.getTypeTransaction()));
         entity = service.save(entity);
         TransactionModel newModel = modelMapper.map(entity, TransactionModel.class);

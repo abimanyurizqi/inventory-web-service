@@ -11,22 +11,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.transaction.annotation.Transactional;
 
-
+@Transactional
 @org.springframework.stereotype.Service
-public class ItemServiceImpl implements Service<Item> {
+public class ItemServiceImpl implements Service<Item, Integer> {
 
 
     @Autowired
     private ItemRepository itemRepository;
 
-    @Transactional
+
     @Override
     public Item save(Item entity) {
 
         return itemRepository.save(entity);
     }
 
-    @Transactional
     @Override
     public Item removeById(Integer id) {
         Item entity = findById(id);
@@ -36,9 +35,7 @@ public class ItemServiceImpl implements Service<Item> {
 
     @Override
     public Item findById(Integer id) {
-        return itemRepository.findById(id).orElseThrow(() -> {
-            return new EntityNotFoundException();
-        });
+        return itemRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
     }
 
     @Override

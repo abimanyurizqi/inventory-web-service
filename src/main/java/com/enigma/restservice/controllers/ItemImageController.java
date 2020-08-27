@@ -23,7 +23,7 @@ import java.util.List;
 public class ItemImageController {
 
     @Autowired
-    private Service<Item> service;
+    private Service<Item, Integer> service;
 
     @Autowired
     private ItemImageService itemImageService;

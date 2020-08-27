@@ -1,9 +1,15 @@
 package com.enigma.restservice.models.transactions;
 
 
+import com.enigma.restservice.validation.annotations.MinLength;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 public class TransactionModel {
 
     private Integer id;
+
 
     public Integer getId() {
         return id;
@@ -13,8 +19,14 @@ public class TransactionModel {
         this.id = id;
     }
 
+    @NotNull(message = "{amount.notblank}")
     private Double amount;
+
+    @MinLength(3)
+    @NotBlank(message = "{description.notblank}")
     private String description;
+
+    @NotBlank(message = "{typeTransaction.notblank}")
     private String typeTransaction;
 
 

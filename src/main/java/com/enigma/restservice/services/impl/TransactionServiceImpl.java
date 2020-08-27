@@ -7,6 +7,7 @@ import com.enigma.restservice.services.Service;
 import com.enigma.restservice.services.TransactionSummaryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.Month;
@@ -14,8 +15,9 @@ import java.time.Year;
 import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 
+@Transactional
 @org.springframework.stereotype.Service
-public class TransactionServiceImpl implements Service<Transaction>, TransactionSummaryService {
+public class TransactionServiceImpl implements Service<Transaction, Integer>, TransactionSummaryService {
 
     @Autowired
     private TransactionRepository transactionRepository;
@@ -35,9 +37,7 @@ public class TransactionServiceImpl implements Service<Transaction>, Transaction
 
     @Override
     public Transaction findById(Integer id) {
-        return transactionRepository.findById(id).orElseThrow(() -> {
-            return new EntityNotFoundException();
-        });
+        return transactionRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
     }
 
     @Override
